@@ -4,15 +4,30 @@ const User = require("../models/User");
 const { addNewUser, getUsers } = require("../controllers/userController");
 
 router.get("/:id", verify, async (req, res) => {
-  var id = req.params.id;
-  const userid = await User.findOne({ _id: id });
-  User.findOne({ _id: id }, (err, user) => {
-        if (err) {
-            res.send(err);
-        }
-        res.json(user);
-    })
-  
+  //var id = req.params.id;
+  //const userid = await User.findOne({ _id: id });
+  User.findOne(req.params.id, (err, user) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(user);
+  });
+});
+
+router.put("/:id", verify, async (req, res) => {
+  //var id = req.params.id;
+  //const userid = await User.findOne({ _id: id });
+  User.findOneAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    { new: true, useFindAndModify: false },
+    (err, user) => {
+      if (err) {
+        res.send(err);
+      }
+      res.json(user);
+    }
+  );
 });
 
 module.exports = router;
