@@ -15,8 +15,6 @@ router.get("/:id", verify, async (req, res) => {
 });
 
 router.put("/:id", verify, async (req, res) => {
-  //var id = req.params.id;
-  //const userid = await User.findOne({ _id: id });
   User.findOneAndUpdate(
     { _id: req.params.id },
     req.body,
@@ -26,6 +24,18 @@ router.put("/:id", verify, async (req, res) => {
         res.send(err);
       }
       res.json(user);
+    }
+  );
+});
+
+router.delete("/:id", async (req, res) => {
+  User.remove(
+    { _id: req.params.id },
+    (err, user) => {
+      if (err) {
+        res.send(err);
+      }
+      res.json({message: "successfully deleted user"});
     }
   );
 });
