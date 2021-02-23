@@ -9,3 +9,7 @@ The frontend was created with React (Next JS), Bootstrap 4.0 and TypeScript.
 # Backend
 The backend was created was Node, Express.js & MongoDB.
 JWT token was used for user authentication
+
+# Testing
+Jest was used for frontend testing
+Jasmine was used for Backend
