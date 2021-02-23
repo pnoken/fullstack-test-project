@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const User = require('../models/User');
 
-//const User = mongoose.model('Contact', UserSchema);
+//const User = mongoose.model('User', userSchema);
 
-module.export= addNewUser = (req, res) => {
+module.exports = addNewUser = (req, res) => {
     let newUser = new User(req.body);
     
     newUser.save((err, user) => {
@@ -14,17 +14,21 @@ module.export= addNewUser = (req, res) => {
     })
 }
 
-module.exports = getUsers = (req, res) => {
+module.exports =  getUsers = (req, res) => {
     
     User.find({}, (err, user) => {
         if (err) {
             res.send(err);
         }
-        res.json(user)
+        res.json(user);
     })
 }
 
-module.exports = authRole = (role) => {
+module.exports =  getContactWithID = (req, res) => {
+    
+}
+
+module.exports =  authRole = (role) => {
     return (req, res, next) => {
         if (req.user.role !== role){
             res.status(401)
