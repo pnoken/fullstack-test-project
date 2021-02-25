@@ -14,11 +14,30 @@ const userRoute = require("./src/routes/users");
 dotenv.config();
 const app = express();
 const http = require("http").Server(app);
+//serving static files
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.json());
+
+//epsagon
+
+// const epsagon = require('epsagon');
+
+// epsagon.init({
+//   token: '1d89dcc4-66c8-444a-a130-9226ed93a767',
+//   appName: 'test=project',
+//   metadataOnly: false, // Optional, send more trace data
+// });
+
+// const main = epsagon.nodeWrapper(() => {
+//   return 'Hello World!';
+// });
+
+// main();
+
+
 
 //routes(app);
 

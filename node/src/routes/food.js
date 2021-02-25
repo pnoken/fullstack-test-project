@@ -41,18 +41,3 @@ router.delete("/:id", async (req, res) => {
 });
 
 module.exports = router;
-
-// router.post("/add", (req, res) => {
-//   console.log(`Request from: ${req.originalUrl}`);
-//   addNewUser;
-// });
-
-// router.put("/:username", (req, res) => {
-//   res.send("PUT request successful");
-// })
-
-// router.delete("/:username", (req, res) => {
-//   res.send("DELETE request successful");
-// });
-
-// export default routes;
