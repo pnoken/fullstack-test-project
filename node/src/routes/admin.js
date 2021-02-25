@@ -4,7 +4,7 @@ const User = require("../models/User");
 const Food = require("../models/Food");
 const { addNewUser, getUsers } = require("../controllers/userController");
 
-router.get("/users", verify, async (req, res) => {
+router.get("/users", async (req, res) => {
   const admin = await User.findOne({ role: "admin" });
     User.find({}, (err, user) => {
         if (err) {
