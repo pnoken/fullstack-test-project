@@ -30,6 +30,22 @@ router.post("/food", verify,  async (req, res) => {
   }) 
 })
 
+router.get("/profile", verify,  async (req, res) => {
+  //const admin = await User.findOne({ role: "admin" });
+  const token = req.header('auth-token');
+  jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+    if(err){
+      res.sendStatus(403);
+    } else {
+      try {
+        res.json(user);
+      } catch (err) {
+        res.status(400).send(err);
+      }
+    }
+  }) 
+})
+
 //Get List of Meals Available for a user
 router.get("/food/:id", verify, async (req, res) => {
   //var id = req.params.id;
