@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 
 const menuSchema = new mongoose.Schema({
+  id: {
+    type: String,
+  },
+  user: {
+    type: Object,
+  },
   monday: {
     type: String,
     required: "Enter a valid Weekday",
@@ -24,7 +30,7 @@ const menuSchema = new mongoose.Schema({
   friday: {
     type: String,
     required: "Enter a Food Name",
-  }
+  },
 });
 
 module.exports = mongoose.model("Menu", menuSchema);

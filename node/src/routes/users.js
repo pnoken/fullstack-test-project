@@ -9,27 +9,66 @@ const jwt = require('jsonwebtoken');
 router.post("/food", verify,  async (req, res) => {
   //const admin = await User.findOne({ role: "admin" });
   const token = req.header('auth-token');
-  const menu = new Menu({
-    monday: req.body.monday,
-    tuesday: req.body.tuesday,
-    wednesday: req.body.wednesday,
-    thursday: req.body.thursday,
-    friday: req.body.friday
-  });
-  const savedMenu = await menu.save();
-  jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+  jwt.verify(token, process.env.TOKEN_SECRET, async (err, user) => {
+    const menu = new Menu({
+      id: user._id,
+      user: user,
+      monday: req.body.monday,
+      tuesday: req.body.tuesday,
+      wednesday: req.body.wednesday,
+      thursday: req.body.thursday,
+      friday: req.body.friday
+    });
+    const savedMenu = await menu.save();
     if(err){
       res.sendStatus(403);
     } else {
       try {
-        res.json({user, savedMenu});
+        res.json(savedMenu);
       } catch (err) {
         res.status(400).send(err);
       }
     }
   }) 
-})
+});
 
+//Get all meals selected by users
+router.get("/food", verify,  async (req, res) => {
+  //const admin = await User.findOne({ role: "admin" });
+  await Menu.find({}, (err, menu) => {
+    if (err) {
+      res.send(err);
+    } else {
+    res.json(menu)
+  };
+  });
+});
+
+//Get List of Meals Available for a user
+router.get("/food/:id", async (req, res) => {
+  await Menu.findOne({id: req.params.id}, (err, menu) => {
+    if (err) {
+      res.send(err);
+    } else {
+    res.json(menu)
+  };
+  });
+});
+
+router.delete("/food/:id", async (req, res) => {
+  Menu.removeAllListeners(
+    { id: req.params.id },
+    (err, user) => {
+      if (err) {
+        res.send(err);
+      }
+      res.json({message: "successfully deleted menu"});
+    }
+  );
+});
+
+
+//Get Profile Details
 router.get("/profile", verify,  async (req, res) => {
   //const admin = await User.findOne({ role: "admin" });
   const token = req.header('auth-token');
@@ -45,19 +84,6 @@ router.get("/profile", verify,  async (req, res) => {
     }
   }) 
 })
-
-//Get List of Meals Available for a user
-router.get("/food/:id", verify, async (req, res) => {
-  //var id = req.params.id;
-  //const userid = await User.findOne({ _id: id });
-  await Menu.findOne({savedMenu: req.params.user.id}, (err, menu) => {
-    if (err) {
-      res.send(err);
-    } else {
-    res.json(menu)
-  };
-  });
-});
 
 
 router.get("/:id", verify, async (req, res) => {
@@ -98,5 +124,3 @@ router.delete("/:id", async (req, res) => {
 });
 
 module.exports = router;
-
-// export default routes;

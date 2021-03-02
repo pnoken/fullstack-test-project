@@ -9,6 +9,7 @@ const routes = require("./src/routes/users")
  const authRoute = require("./src/routes/auth");
  const adminRoute = require("./src/routes/admin");
 const userRoute = require("./src/routes/users");
+const foodRoute = require("./src/routes/food");
 
 
 dotenv.config();
@@ -128,6 +129,7 @@ mongoose.connect(
 app.use("/auth", authRoute);
 app.use("/admin", adminRoute);
 app.use("/user", userRoute);
+app.use("/food", foodRoute)
 
 var server = http.listen(3001, () => {
   console.log("Sever is listenting on port", server.address().port);
