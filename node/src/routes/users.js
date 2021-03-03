@@ -33,7 +33,7 @@ router.post("/food", verify,  async (req, res) => {
 });
 
 //Get all meals selected by users
-router.get("/food", verify,  async (req, res) => {
+router.get("/food", async (req, res) => {
   //const admin = await User.findOne({ role: "admin" });
   await Menu.find({}, (err, menu) => {
     if (err) {
@@ -56,13 +56,27 @@ router.get("/food/:id", async (req, res) => {
 });
 
 router.delete("/food/:id", async (req, res) => {
-  Menu.removeAllListeners(
+  Menu.remove(
     { id: req.params.id },
-    (err, user) => {
+    (err, menu) => {
       if (err) {
         res.send(err);
       }
       res.json({message: "successfully deleted menu"});
+    }
+  );
+});
+
+router.put("/food/:id", async (req, res) => {
+  Menu.findOneAndUpdate(
+    { id: req.params.id },
+    req.body,
+    { new: true, useFindAndModify: false },
+    (err, food) => {
+      if (err) {
+        res.send(err);
+      }
+      res.json(food);
     }
   );
 });
