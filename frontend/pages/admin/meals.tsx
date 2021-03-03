@@ -37,7 +37,6 @@ function meals() {
   useEffect(() => {
     var requestOptions = {
       method: "GET",
-      //headers: myHeaders,
     };
 
     fetch("http://localhost:3001/admin/food", requestOptions)
@@ -52,7 +51,6 @@ function meals() {
     const item = meal.find((food: any) => food._id === id);
 
     setEditMeal(item);
-    // console.log("editmeal", editMeal);
     setWeekday(item.day);
     setMealName(item.food);
     setUpdateId(item._id);

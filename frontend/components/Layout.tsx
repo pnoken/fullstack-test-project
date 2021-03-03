@@ -70,24 +70,18 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
                   <Link href="/profile">
                     <a className="dropdown-item">Profile</a>
                   </Link>
-                  <a className="dropdown-item" href="#">
-                    Another action
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
+                  <Link href="/">
+                    <a className="dropdown-item"
+                      onClick={() => {
+                        window.localStorage.removeItem("profile");
+                        window.localStorage.removeItem("auth");
+                      }}
+                    >
+                      <li>logout</li>
+                    </a>
+                  </Link>
                 </div>
               </div>
-              <Link href="/">
-                <a
-                  onClick={() => {
-                    window.localStorage.removeItem("profile");
-                    window.localStorage.removeItem("auth");
-                  }}
-                >
-                  <li>logout</li>
-                </a>
-              </Link>
             </ul>
           ) : user.role == "admin" ? (
             <ul className="float-right">
@@ -117,18 +111,18 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
                   <Link href="/admin">
                     <a className="dropdown-item">Admin Panel</a>
                   </Link>
+                  <Link href="/">
+                    <a className="dropdown-item"
+                      onClick={() => {
+                        window.localStorage.removeItem("profile");
+                        window.localStorage.removeItem("auth");
+                      }}
+                    >
+                      <li>logout</li>
+                    </a>
+                  </Link>
                 </div>
               </div>
-              <Link href="/">
-                <a
-                  onClick={() => {
-                    window.localStorage.removeItem("profile");
-                    window.localStorage.removeItem("auth");
-                  }}
-                >
-                  <li>logout</li>
-                </a>
-              </Link>
             </ul>
           ) : (
             <ul>

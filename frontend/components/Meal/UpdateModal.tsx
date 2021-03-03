@@ -1,25 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export default function UpdateModal({updateId }: any) {
+export default function UpdateModal() {
+  const [meal, setMeal] = useState<any>([]);
   const [monday, setMonday] = useState("");
   const [tuesday, setTuesday] = useState("");
   const [wednesday, setWednesday] = useState("");
   const [thursday, setThursday] = useState("");
   const [friday, setFriday] = useState("");
   const [food, setFood] = useState<any>([]);
+  const [userId, setUserId] = useState<any>();
+ 
 
   //console.log("Ma", meal)
+  useEffect(() => {
+    let lStorage: any = window.localStorage.getItem("profile");
+    if (lStorage) {
+      lStorage = JSON.parse(lStorage);
+      console.log("local", lStorage._id);
+      setUserId(lStorage._id);
+    }
+  }, []);
 
-  var requestOptions = {
-    method: "GET",
-  };
-
-  fetch("http://localhost:3001/admin/food", requestOptions)
-    .then((response) => response.json())
-    .then((result) => setFood(result))
-    .catch((error) => console.log("error", error));
-
-  const updateMeal = async (id: any) => {
+  const updateMeal = async () => {
     try {
       var raw = JSON.stringify({
         monday: monday,
@@ -34,7 +36,7 @@ export default function UpdateModal({updateId }: any) {
         body: raw,
       };
 
-      fetch(`http://localhost:3001/user/food//${id}`, requestOptions)
+      fetch(`http://localhost:3001/user/food/${userId}`, requestOptions)
         .then((response) => response.json())
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));
@@ -42,6 +44,34 @@ export default function UpdateModal({updateId }: any) {
       alert("Could not update");
     }
   };
+
+  var requestOptions = {
+    method: "GET",
+  };
+
+  fetch("http://localhost:3001/admin/food", requestOptions)
+    .then((response) => response.json())
+    .then((result) => setFood(result))
+    .catch((error) => console.log("error", error));
+
+    useEffect(() => {
+      var requestOptions = {
+        method: "GET",
+      };
+  
+      const getMenu = async () => {
+        await fetch(`http://localhost:3001/user/food/${userId}`, requestOptions)
+          .then((response) => response.json())
+          .then((result) => {
+            setMeal(result), console.log("meal res", result);
+          })
+          .catch((error) => console.log("error", error));
+      };
+      getMenu();
+    }, [updateMeal, meal]);
+
+
+
   return (
     <div id="editselection" className="modal fade" role="dialog">
       <div className="modal-dialog">
@@ -54,13 +84,13 @@ export default function UpdateModal({updateId }: any) {
           <div className="modal-body">
             <label>Monday</label>
             <select onChange={(e) => setMonday(e.target.value)}>
-              <option>Select a meal</option>
+              
               {food
                 .filter((food: any) => food.day === "monday")
                 .map((day: any) => (
                   <option
                     key={day._id}
-                    value={day.day}
+                    value={meal.monday}
                     className="text-capitalize"
                   >
                     {day.food}
@@ -70,11 +100,11 @@ export default function UpdateModal({updateId }: any) {
 
             <label>Tuesday</label>
             <select onChange={(e) => setTuesday(e.target.value)}>
-              <option>Select a meal</option>
+             
               {food
                 .filter((food: any) => food.day === "tuesday")
                 .map((day: any) => (
-                  <option value={day.day} className="text-capitalize">
+                  <option value={meal.tuesday} className="text-capitalize">
                     {day.food}
                   </option>
                 ))}
@@ -82,11 +112,11 @@ export default function UpdateModal({updateId }: any) {
 
             <label>Wednesday</label>
             <select onChange={(e) => setWednesday(e.target.value)}>
-              <option>Select a meal</option>
+              
               {food
                 .filter((food: any) => food.day === "wednesday")
                 .map((day: any) => (
-                  <option value={day.day} className="text-capitalize">
+                  <option value={meal.wednesday} className="text-capitalize">
                     {day.food}
                   </option>
                 ))}
@@ -94,11 +124,11 @@ export default function UpdateModal({updateId }: any) {
 
             <label>Thursday</label>
             <select onChange={(e) => setThursday(e.target.value)}>
-              <option>Select a meal</option>
+             
               {food
                 .filter((food: any) => food.day === "thursday")
                 .map((day: any) => (
-                  <option value={day.day} className="text-capitalize">
+                  <option value={meal.thursday} className="text-capitalize">
                     {day.food}
                   </option>
                 ))}
@@ -106,11 +136,11 @@ export default function UpdateModal({updateId }: any) {
 
             <label>Friday</label>
             <select onChange={(e) => setFriday(e.target.value)}>
-              <option>Select a meal</option>
+              
               {food
                 .filter((food: any) => food.day === "friday")
                 .map((day: any) => (
-                  <option value={day.food} className="text-capitalize">
+                  <option value={meal.friday} className="text-capitalize">
                     {day.food}
                   </option>
                 ))}
@@ -122,7 +152,7 @@ export default function UpdateModal({updateId }: any) {
               id="up"
               className="btn btn-warning"
               data-dismiss="modal"
-              onClick={() => updateMeal(updateId)}
+              onClick={() => updateMeal}
             >
               Update
             </button>

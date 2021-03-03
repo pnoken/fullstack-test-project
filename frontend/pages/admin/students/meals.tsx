@@ -6,38 +6,8 @@ import AdminLayout from "../../../components/AdminLayout";
 function meals() {
   const [meal, setMeal] = useState<any>([]);
   const [delId, setDelID] = useState<any>();
-//   const [editMeal, setEditMeal] = useState<any>([]);
-//   const [weekday, setWeekday] = useState("");
-//   const [mealName, setMealName] = useState("");
-//   const [updateId, setUpdateId] = useState<any>();
-
-//   const updateMeal = async (id: any) => {
-//     try {
-//       var raw = JSON.stringify({
-//         day: weekday,
-//         food: mealName,
-//       });
-
-//       var requestOptions = {
-//         method: "PUT",
-//         body: raw,
-//       };
-
-//       fetch(`http://localhost:3001/admin/food/${id}`, requestOptions)
-//         .then((response) => response.json())
-//         .then((result) => console.log(result))
-//         .catch((error) => console.log("error", error));
-//     } catch (error) {
-//       alert("Could not update");
-//     }
-//   };
 
   useEffect(() => {
-    //var myHeaders = new Headers();
-    // myHeaders.append(
-    //   "auth-token",
-    //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDM1ZjMyMGU3YjBkYTY4OTA5MzIxMGIiLCJlbWFpbCI6Im5vcnRleXBldGVyQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoicG5va2VuIiwicm9sZSI6InN0dWRlbnQiLCJpYXQiOjE2MTQ2NTUwMjR9.HHJsIJWZ5xuSZCYRGYHOKGf6cz8M71O65rqiiziktCc"
-    // );
 
     var requestOptions = {
       method: "GET"
@@ -50,16 +20,6 @@ function meals() {
       })
       .catch((error) => console.log("error", error));
   }, [meal]);
-
-//   const findMeal = (id: any) => {
-//     const item = meal.find((food: any) => food.id === id);
-
-//     setEditMeal(item);
-//     // console.log("editmeal", editMeal);
-//     setWeekday(item.day);
-//     setMealName(item.food);
-//     setUpdateId(item._id);
-//   };
 
   const deleteMeal = async (id: any) => {
     try {

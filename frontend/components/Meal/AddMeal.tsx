@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function AddMeal({meal, setAdded}: any) {
+export default function AddMeal({setAdded}: any) {
   //const router = useRouter();
   const [monday, setMonday] = useState("Choose Meal");
   const [tuesday, setTuesday] = useState("Choose Meal");
@@ -65,14 +65,13 @@ export default function AddMeal({meal, setAdded}: any) {
           </div>
           <div className="modal-body">
             <label>Monday</label>
-            <select onChange={(e) => setMonday(e.target.value)}>
+            <select value={monday} onChange={(e) => setMonday(e.target.value)}>
               <option>Select a meal</option>
               {food
                 .filter((food: any) => food.day === "monday")
                 .map((day: any) => (
                   <option
-                    key={day._id}
-                    value={day.day}
+                    value={day.food}
                     className="text-capitalize"
                   >
                     {day.food}
@@ -86,7 +85,7 @@ export default function AddMeal({meal, setAdded}: any) {
               {food
                 .filter((food: any) => food.day === "tuesday")
                 .map((day: any) => (
-                  <option value={day.day} className="text-capitalize">
+                  <option value={day.food} className="text-capitalize">
                     {day.food}
                   </option>
                 ))}
@@ -98,7 +97,7 @@ export default function AddMeal({meal, setAdded}: any) {
               {food
                 .filter((food: any) => food.day === "wednesday")
                 .map((day: any) => (
-                  <option value={day.day} className="text-capitalize">
+                  <option value={day.food} className="text-capitalize">
                     {day.food}
                   </option>
                 ))}
@@ -110,7 +109,7 @@ export default function AddMeal({meal, setAdded}: any) {
               {food
                 .filter((food: any) => food.day === "thursday")
                 .map((day: any) => (
-                  <option value={day.day} className="text-capitalize">
+                  <option value={day.food} className="text-capitalize">
                     {day.food}
                   </option>
                 ))}

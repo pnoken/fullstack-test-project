@@ -1,7 +1,3 @@
-//import AdminNavbar from "../components/AdminNavbar";
-//import AdminNavbar from "../../components/AdminNavbar";
-//import Layout from "../../components/Layout";
-//import Layout from "../../components/Layout";
 import AdminLayout from "../../components/AdminLayout";
 
 const Admin = () => (

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-//import Meals from "../../components/Admin/Meals";
 import DeleteModal from "../../components/Meal/DeleteModal";
 import UpdateModal from "../../components/Meal/UpdateModal";
 import Layout from "../../components/Layout";
@@ -7,7 +6,6 @@ import AddMeal from "../../components/Meal/AddMeal";
 
 function studentMeal() {
   const [meal, setMeal] = useState<any>([]);
-  //const [delId, setDelID] = useState<any>();
   const [userId, setUserId] = useState<any>();
   const [added, setAdded] = useState<boolean>(false);
 
@@ -38,6 +36,7 @@ function studentMeal() {
 
   return (
     <Layout title="Meals">
+      <div className="container">
       <h2>Please Select a Meal (One Per Day)</h2>
       {meal != null ? (
         <div>
@@ -104,7 +103,8 @@ function studentMeal() {
         </div>
       )}
       <DeleteModal delId={userId} />
-      <UpdateModal meal={meal} />
+      {/* <UpdateModal /> */}
+      </div>
     </Layout>
   );
 }
