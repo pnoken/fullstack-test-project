@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export default function UpdateModal() {
-  const [meal, setMeal] = useState<any>([]);
+  const [meal, setMeal] = useState<any>({});
   const [monday, setMonday] = useState("");
   const [tuesday, setTuesday] = useState("");
   const [wednesday, setWednesday] = useState("");
@@ -9,15 +9,14 @@ export default function UpdateModal() {
   const [friday, setFriday] = useState("");
   const [food, setFood] = useState<any>([]);
   const [userId, setUserId] = useState<any>();
- 
 
-  //console.log("Ma", meal)
+  // console.log("Ma", mel)
   useEffect(() => {
-    let lStorage: any = window.localStorage.getItem("profile");
+    let lStorage: any = window.localStorage.getItem("auth");
     if (lStorage) {
       lStorage = JSON.parse(lStorage);
       console.log("local", lStorage._id);
-      setUserId(lStorage._id);
+      setUserId(lStorage.user._id);
     }
   }, []);
 
@@ -54,23 +53,20 @@ export default function UpdateModal() {
     .then((result) => setFood(result))
     .catch((error) => console.log("error", error));
 
-    useEffect(() => {
-      var requestOptions = {
-        method: "GET",
-      };
-  
-      const getMenu = async () => {
-        await fetch(`http://localhost:3001/user/food/${userId}`, requestOptions)
-          .then((response) => response.json())
-          .then((result) => {
-            setMeal(result), console.log("meal res", result);
-          })
-          .catch((error) => console.log("error", error));
-      };
-      getMenu();
-    }, [updateMeal, meal]);
+  useEffect(() => {
+    var requestOptions = {
+      method: "GET",
+    };
 
-
+    const getMenu = async () => {
+      await fetch(`http://localhost:3001/user/food/${userId}`, requestOptions)
+        .then((response) => response.text())
+        .then((result) => 
+          setMeal(result))
+        .catch((error) => console.log("error", error));
+    };
+    getMenu();
+  }, []);
 
   return (
     <div id="editselection" className="modal fade" role="dialog">
@@ -84,7 +80,6 @@ export default function UpdateModal() {
           <div className="modal-body">
             <label>Monday</label>
             <select onChange={(e) => setMonday(e.target.value)}>
-              
               {food
                 .filter((food: any) => food.day === "monday")
                 .map((day: any) => (
@@ -100,11 +95,14 @@ export default function UpdateModal() {
 
             <label>Tuesday</label>
             <select onChange={(e) => setTuesday(e.target.value)}>
-             
               {food
                 .filter((food: any) => food.day === "tuesday")
                 .map((day: any) => (
-                  <option value={meal.tuesday} className="text-capitalize">
+                  <option
+                    key={day._id}
+                    value={meal.tuesday}
+                    className="text-capitalize"
+                  >
                     {day.food}
                   </option>
                 ))}
@@ -112,11 +110,14 @@ export default function UpdateModal() {
 
             <label>Wednesday</label>
             <select onChange={(e) => setWednesday(e.target.value)}>
-              
               {food
                 .filter((food: any) => food.day === "wednesday")
                 .map((day: any) => (
-                  <option value={meal.wednesday} className="text-capitalize">
+                  <option
+                    key={day._id}
+                    value={meal.wednesday}
+                    className="text-capitalize"
+                  >
                     {day.food}
                   </option>
                 ))}
@@ -124,11 +125,14 @@ export default function UpdateModal() {
 
             <label>Thursday</label>
             <select onChange={(e) => setThursday(e.target.value)}>
-             
               {food
                 .filter((food: any) => food.day === "thursday")
                 .map((day: any) => (
-                  <option value={meal.thursday} className="text-capitalize">
+                  <option
+                    key={day._id}
+                    value={meal.thursday}
+                    className="text-capitalize"
+                  >
                     {day.food}
                   </option>
                 ))}
@@ -136,11 +140,14 @@ export default function UpdateModal() {
 
             <label>Friday</label>
             <select onChange={(e) => setFriday(e.target.value)}>
-              
               {food
                 .filter((food: any) => food.day === "friday")
                 .map((day: any) => (
-                  <option value={meal.friday} className="text-capitalize">
+                  <option
+                    key={day._id}
+                    value={meal.friday}
+                    className="text-capitalize"
+                  >
                     {day.food}
                   </option>
                 ))}

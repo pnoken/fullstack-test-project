@@ -29,8 +29,15 @@ function login() {
       await fetch("http://localhost:3001/auth/login", requestOptions)
         .then((response) => response.text())
         .then((result) => {
-          setAuth(result), console.log(result);
-        });
+          if (result.includes("Invalid Password")){
+            alert("invalid Password");
+            return
+          }
+          else {
+            setAuth(result)
+          } 
+        })
+        .catch((error) => alert(error));
 
       
     } catch (err) {

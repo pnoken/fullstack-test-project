@@ -37,7 +37,7 @@ export default function AddMeal({setAdded}: any) {
       friday: friday,
     });
     var myHeaders = new Headers();
-    myHeaders.append("auth-token", auth);
+    myHeaders.append("auth-token", auth.token);
     myHeaders.append("Content-Type", "application/json");
 
     let requestOptions = {
@@ -49,9 +49,8 @@ export default function AddMeal({setAdded}: any) {
     
     fetch("http://localhost:3001/user/food", requestOptions)
       .then((response) => response.json())
-      .then((result) => console.log(result))
+      .then((result) => {console.log(result), setAdded(true)})
       .catch((error) => console.log("error", error));
-      setAdded(true)
   };
 
   return (

@@ -1,6 +1,7 @@
 import React, { ReactNode, useState, useEffect } from "react";
 import Link from "next/link";
 import Head from "next/head";
+import LoginModal from "./LoginModal";
 //import { useRouter } from "next/router";
 //import Navbar from "./AdminNavbar";
 
@@ -9,18 +10,24 @@ type Props = {
   title?: string;
 };
 
-const Layout = ({ children, title = "This is the default title" }: Props) => {
-  const [user, setUser] = useState<any>({});
-  //const router = useRouter();
+const Layout = ({
+  children,
+  title = "The Healthy, Hunger-Free Kids",
+}: Props) => {
+  //const [user, setUser] = useState<any>({});
+  const [ isloggedIn, setIsLoggedIn ] = useState<boolean>(false);
+  const [profile, setProfile] = useState<any>({user: {role: ""}});
 
   useEffect(() => {
-    let lStorage: any = window.localStorage.getItem("profile");
+    let lStorage: any = window.localStorage.getItem("auth");
     if (lStorage) {
-      lStorage = JSON.parse(lStorage);
-      console.log("local", lStorage);
-      setUser(lStorage);
+      let parsedlStorage = JSON.parse(lStorage);
+      console.log("local", parsedlStorage);
+      setProfile(parsedlStorage);
+      setIsLoggedIn(true);
     }
-  }, []);
+    //console.log("profile", profile)
+  }, [isloggedIn]);
 
   return (
     <div>
@@ -45,7 +52,7 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
               </a>
             </Link>
           </div>
-          {user.role == "student" ? (
+          {isloggedIn && profile.user.role == "student" ? (
             <ul className="float-right">
               <Link href="/meal">
                 <a>
@@ -61,7 +68,7 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Welcome {user.username}
+                  Welcome {profile.user.username}
                 </button>
                 <div
                   className="dropdown-menu"
@@ -71,10 +78,11 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
                     <a className="dropdown-item">Profile</a>
                   </Link>
                   <Link href="/">
-                    <a className="dropdown-item"
+                    <a
+                      className="dropdown-item"
                       onClick={() => {
-                        window.localStorage.removeItem("profile");
                         window.localStorage.removeItem("auth");
+                        setIsLoggedIn(false);
                       }}
                     >
                       <li>logout</li>
@@ -83,7 +91,7 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
                 </div>
               </div>
             </ul>
-          ) : user.role == "admin" ? (
+          ) : isloggedIn && profile.user.role == "admin" ? (
             <ul className="float-right">
               <Link href="/meal">
                 <a>
@@ -99,7 +107,7 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Welcome {user.username}
+                  Welcome {profile.user.username}
                 </button>
                 <div
                   className="dropdown-menu"
@@ -112,10 +120,11 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
                     <a className="dropdown-item">Admin Panel</a>
                   </Link>
                   <Link href="/">
-                    <a className="dropdown-item"
+                    <a
+                      className="dropdown-item"
                       onClick={() => {
-                        window.localStorage.removeItem("profile");
                         window.localStorage.removeItem("auth");
+                        setIsLoggedIn(false);
                       }}
                     >
                       <li>logout</li>
@@ -126,11 +135,10 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
             </ul>
           ) : (
             <ul>
-              <Link href="/users/login">
-                <a>
-                  <li className="text-light">login</li>
-                </a>
-              </Link>
+              <a type="button" data-toggle="modal" data-target="#login">
+                <li className="text-light">login</li>
+              </a>
+
               <Link href="/users/signup">
                 <a>
                   <li className="text-light">Sign Up</li>
@@ -162,6 +170,7 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
         <hr />
         <span>Test Project</span>
       </footer>
+      <LoginModal setIsLoggedIn={setIsLoggedIn}/>
     </div>
   );
 };

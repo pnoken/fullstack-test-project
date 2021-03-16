@@ -91,8 +91,9 @@ function Signup() {
             <br />
             <br />
             <input
-              id="name"
+              id="pw"
               className="form-control"
+              type="password"
               placeholder="password"
               value={password}
               onChange={(e) => {

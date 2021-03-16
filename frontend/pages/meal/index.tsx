@@ -10,11 +10,11 @@ function studentMeal() {
   const [added, setAdded] = useState<boolean>(false);
 
   useEffect(() => {
-    let lStorage: any = window.localStorage.getItem("profile");
+    let lStorage: any = window.localStorage.getItem("auth");
     if (lStorage) {
       lStorage = JSON.parse(lStorage);
-      console.log("local", lStorage._id);
-      setUserId(lStorage._id);
+      console.log("local", lStorage.user._id);
+      setUserId(lStorage.user._id);
     }
   }, []);
 
@@ -27,7 +27,7 @@ function studentMeal() {
       await fetch(`http://localhost:3001/user/food/${userId}`, requestOptions)
         .then((response) => response.json())
         .then((result) => {
-          setMeal(result), console.log("meal", result);
+          setMeal(result)
         })
         .catch((error) => console.log("error", error));
     };
@@ -103,7 +103,7 @@ function studentMeal() {
         </div>
       )}
       <DeleteModal delId={userId} />
-      {/* <UpdateModal /> */}
+      <UpdateModal />
       </div>
     </Layout>
   );
