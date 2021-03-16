@@ -20,7 +20,7 @@ function Signup() {
     username: userName,
     email: email,
     password: password,
-    age: age
+    age: age,
   };
 
   var requestOptions = {
@@ -30,12 +30,35 @@ function Signup() {
   };
 
   const submit = async () => {
-    fetch("http://localhost:3001/auth/signup", requestOptions)
-      .then((response) => response.json())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-
-    // router.push("/login");
+    try {
+      if (firstName.length < 1) {
+        alert("Enter a valid firstname or last Name");
+      }
+      if (lastName.length < 1) {
+        alert("Enter a valid firstname or last Name");
+      }
+      if (userName.length < 5) {
+        alert("Username should be more than 6 characters");
+      }
+      if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+        alert("Please enter a valid email");
+      }
+      fetch("http://localhost:3001/auth/signup", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.includes("Email already exists")) {
+            alert("Email already exists");
+          }
+          if (result.includes("Username already exists")) {
+            alert("Username already exists");
+          } else {
+            alert("Sign Up successful");
+            //router.push("/login");
+          }
+        });
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -48,6 +71,7 @@ function Signup() {
             <br />
             <input
               id="name"
+              type="name"
               className="form-control"
               placeholder="First Name"
               value={firstName}
@@ -59,6 +83,7 @@ function Signup() {
             <br />
             <input
               id="name"
+              type="name"
               className="form-control"
               placeholder="Last Name"
               value={lastName}
