@@ -30,35 +30,33 @@ function Signup() {
   };
 
   const submit = async () => {
-    try {
-      if (firstName.length < 1) {
-        alert("Enter a valid firstname or last Name");
-      }
-      if (lastName.length < 1) {
-        alert("Enter a valid firstname or last Name");
-      }
-      if (userName.length < 5) {
-        alert("Username should be more than 6 characters");
-      }
-      if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
-        alert("Please enter a valid email");
-      }
-      fetch("http://localhost:3001/auth/signup", requestOptions)
-        .then((response) => response.json())
-        .then((result) => {
-          if (result.includes("Email already exists")) {
-            alert("Email already exists");
-          }
-          if (result.includes("Username already exists")) {
-            alert("Username already exists");
-          } else {
-            alert("Sign Up successful");
-            //router.push("/login");
-          }
-        });
-    } catch (error) {
-      alert(error);
+    if (firstName.length < 1) {
+      alert("Enter a valid firstname or last Name");
     }
+    if (lastName.length < 1) {
+      alert("Enter a valid firstname or last Name");
+    }
+    if (userName.length < 5) {
+      alert("Username should be more than 6 characters");
+    }
+    if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+      alert("Please enter a valid email");
+    }
+    fetch("http://localhost:3001/auth/signup", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.includes("Email already exists")) {
+          alert("Email already exists");
+        }
+        if (result.includes("Username already exists")) {
+          alert("Username already exists");
+        } else {
+          alert("Sign Up successful");
+          //router.push("/login");
+        }
+      })
+
+      .catch((error) => alert(error));
   };
 
   return (

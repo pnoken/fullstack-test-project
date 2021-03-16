@@ -11,6 +11,16 @@ export default function students() {
   const [userName, setUserName] = useState("");
   const [age, setAge] = useState<number>();
   const [updateId, setUpdateId] = useState<any>();
+  const [token, setToken] = useState<string>("");
+
+  useEffect(() => {
+    let lStorage: any = window.localStorage.getItem("auth");
+    if (lStorage) {
+      lStorage = JSON.parse(lStorage);
+      console.log("local", lStorage._id);
+      setToken(lStorage.token);
+    }
+  }, []);
 
   const updateStu = async (id: any) => {
     try {
@@ -41,10 +51,7 @@ export default function students() {
 
   useEffect(() => {
     var myHeaders = new Headers();
-    myHeaders.append(
-      "auth-token",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDMyYjIwMzA5YzUwMjYzZTBjNjA4ZGEiLCJpYXQiOjE2MTQwNzY1NzF9.m6mSj-39JQOopxvqvHMv9WAwu-ibjIsahcCSRvSKJSw"
-    );
+    myHeaders.append("auth-token", token);
 
     var requestOptions = {
       method: "GET",

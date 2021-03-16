@@ -3,6 +3,9 @@ import React, {useState} from "react";
 export default function Add() {
   const [day, setDay] = useState("");
   const [food, setFood] = useState("");
+  // const weekdays = {
+  //   monday: 
+  // }
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
@@ -31,17 +34,17 @@ export default function Add() {
             </button>
           </div>
           <div className="modal-body">
-            <input
-              id="wk"
-              type="text"
-              className="form-control"
-              name="day"
-              value={day}
-              placeholder="Weekday"
-                onChange={(e) => {
+          <label>Weekday</label>
+            <select value={day} onChange={(e) => {
                   setDay(e.target.value);
-                }}
-            />
+                }}>
+              <option value="monday">Monday</option>
+              <option value="tuesday">Tuesday</option>
+              <option value="wednesday">Wednesday</option>
+              <option value="thursday">Thursday</option>
+              <option value="friday">Friday</option>
+            </select>
+            
             <input
               id="fd"
               type="text"
