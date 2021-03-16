@@ -23,3 +23,6 @@ Default login for admin:
 email: admin@mail.com
 password: Admin@2021
 
+# Link to API Collection (Postman)
+https://www.getpostman.com/collections/8f4cbdeff3e3dc1f9baa
+
