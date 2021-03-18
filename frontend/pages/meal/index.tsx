@@ -91,7 +91,7 @@ function studentMeal() {
               </tr>
             </thead>
             <tbody key={meal.id}>
-              <tr id="d1">
+              <tr id="d1" className="text-capitalize">
                 <td id="f1">{meal.monday}</td>
                 <td id="f2">{meal.tuesday}</td>
                 <td id="f1">{meal.wednesday}</td>

@@ -101,8 +101,8 @@ function meals() {
           {meal.map((food: any) => (
             <tbody key={food._id}>
               <tr id="d1">
-                <td id="f1">{food.day}</td>
-                <td id="f2">{food.food}</td>
+                <td id="f1" className="text-capitalize">{food.day}</td>
+                <td id="f2" className="text-capitalize">{food.food}</td>
 
                 <td>
                   <button
@@ -113,7 +113,7 @@ function meals() {
                     className="update btn btn-warning btn-sm"
                     onClick={() => findMeal(food._id)}
                   >
-                    <span className="glyphicon glyphicon-pencil"></span>
+                    <img src="/open-iconic/svg/eyedropper.svg" />
                   </button>
                 </td>
                 <td>
@@ -126,7 +126,7 @@ function meals() {
                     value={food._id}
                     onClick={(e: any) => setDelID(e.target.value)}
                   >
-                    <span className="glyphicon glyphicon-trash"></span>
+                    <img src="/open-iconic/svg/delete.svg" alt="delete" />
                   </button>
                 </td>
               </tr>

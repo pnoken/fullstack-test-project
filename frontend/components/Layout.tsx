@@ -15,8 +15,8 @@ const Layout = ({
   title = "The Healthy, Hunger-Free Kids",
 }: Props) => {
   //const [user, setUser] = useState<any>({});
-  const [ isloggedIn, setIsLoggedIn ] = useState<boolean>(false);
-  const [profile, setProfile] = useState<any>({user: {role: ""}});
+  const [isloggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [profile, setProfile] = useState<any>({ user: { role: "" } });
 
   useEffect(() => {
     let lStorage: any = window.localStorage.getItem("auth");
@@ -41,6 +41,8 @@ const Layout = ({
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
           crossOrigin="anonymous"
         ></link>
+        <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet"></link>
+
       </Head>
 
       <>
@@ -170,7 +172,7 @@ const Layout = ({
         <hr />
         <span>Test Project</span>
       </footer>
-      <LoginModal setIsLoggedIn={setIsLoggedIn}/>
+      <LoginModal setIsLoggedIn={setIsLoggedIn} />
     </div>
   );
 };

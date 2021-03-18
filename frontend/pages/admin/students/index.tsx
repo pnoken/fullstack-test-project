@@ -143,7 +143,7 @@ export default function students() {
                       className="update btn btn-warning btn-sm"
                       onClick={() => findStu(stu._id)}
                     >
-                      <span className="glyphicon glyphicon-pencil"></span>
+                      <img src="/open-iconic/svg/eyedropper.svg" />
                     </button>
                   </td>
                   <td>
@@ -156,7 +156,7 @@ export default function students() {
                       value={stu._id}
                       onClick={(e: any) => setDelID(e.target.value)}
                     >
-                      <span className="glyphicon glyphicon-trash"></span>
+                      <img src="/open-iconic/svg/delete.svg" alt="delete" />
                     </button>
                   </td>
                 </tr>
